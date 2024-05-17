@@ -10,9 +10,13 @@ async function quickSort(arr, left = 0, right = arr.length - 1, order = 'asc') {
 }
 
 async function partition(arr, left, right, order) {
-    const pivot = arr[right];
-    let i = left - 1;
+    const pivotIndex = Math.floor((left + right) / 2);
+    const pivot = arr[pivotIndex];
+    // Mover el pivote al final para seguir la lógica de partición
+    [arr[pivotIndex], arr[right]] = [arr[right], arr[pivotIndex]];
     uiUpdater.updateTrace(arr, `Pivote seleccionado: ${pivot}`, [right]);
+    
+    let i = left - 1;
     for (let j = left; j < right; j++) {
         if ((order === 'asc' && arr[j] < pivot) || (order === 'desc' && arr[j] > pivot)) {
             i++;
